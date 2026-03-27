@@ -1,6 +1,6 @@
 # Building Footprint Swapper
 
-A SMAPI utility mod for Stardew Valley modders. When a building upgrade results in a larger footprint, the normal upgrade flow places it in the same spot — which may not fit. This mod intercepts the upgrade and immediately enters move mode so the player can reposition the building themselves.
+A SMAPI utility mod for Stardew Valley modders. When a building upgrade results in a larger footprint, this mod intercepts the upgrade and immediately enters move mode so the player can reposition the building themselves.
 
 ---
 
@@ -21,7 +21,7 @@ Add the following `CustomFields` entry to your upgraded building's data in `Data
   "Action": "EditData",
   "Target": "Data/Buildings",
   "Entries": {
-    "YourName.YourMod_PremiumCoop": {
+    "YourName.YourMod_YourBuilding": {
       "CustomFields": {
         "bobkalonger.BFS_util/ForceMove": "true"
       }
@@ -54,11 +54,3 @@ When a player clicks an upgradeable building in Robin's build menu:
 
 - Cancelling out of move mode after the upgrade is completed does not refund resources or revert the upgrade. The building will remain in its upgraded state at its original tile.
 - Multiplayer behavior has not been tested. Use with caution in multiplayer environments.
-
----
-
-## TODO (before 1.0 release)
-
-- [ ] Replace `bobkalonger` in the `CustomFieldKey` and `manifest.json` with actual author name
-- [ ] Investigate `FinishConstruction` behavior in multiplayer
-- [ ] Consider whether a cancel-and-rollback path is desirable or feasible
