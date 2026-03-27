@@ -1,4 +1,4 @@
-# Building Upgrade Mover
+# Building Footprint Swapper
 
 A SMAPI utility mod for Stardew Valley modders. When a building upgrade results in a larger footprint, the normal upgrade flow places it in the same spot — which may not fit. This mod intercepts the upgrade and immediately enters move mode so the player can reposition the building themselves.
 

@@ -14,6 +14,6 @@ internal class ModEntry : Mod
         var harmony = new Harmony(this.ModManifest.UniqueID);
         CarpenterMenuPatcher.Apply(harmony);
 
-        this.Monitor.Log("Building Upgrade Mover initialized.", LogLevel.Debug);
+        this.Monitor.Log("Building Footprint Swapper initialized.", LogLevel.Debug);
     }
 }
