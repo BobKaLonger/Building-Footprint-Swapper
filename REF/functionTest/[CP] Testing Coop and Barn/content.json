@@ -155,7 +155,7 @@
                     "ID": "{{i18n: TestCoopName}}",
                     "Name": "{{i18n: TestCoopName}}",
                     "Description": "{{i18n: TestCoopDescription}}",
-                    "Texture": "Buildings\\Premium Coop",
+                    "Texture": "Buildings\\SVE_PremiumCoop",
                     "DrawShadow": true,
                     "Size": {
                         "X": 9,
@@ -168,7 +168,6 @@
                         "Width": 144,
                         "Height": 144
                     },
-                    "SeasonOffset": null,
                     "Builder": "Robin",
                     "BuildDays": 1,
                     "BuildCost": 10,
