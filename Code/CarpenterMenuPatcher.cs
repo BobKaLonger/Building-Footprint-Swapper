@@ -44,6 +44,7 @@ internal static class CarpenterMenuPatcher
     }
 
     private static PendingUpgradeCost _pendingCost;
+    private static bool _buildingWasPickedUp;
 
     private record PendingUpgradeCost(int Gold, List<Item> Materials, int OldTilesWide, int OldTilesHigh, Building Building);
 
@@ -107,6 +108,7 @@ internal static class CarpenterMenuPatcher
         __instance.Action = CarpenterMenu.CarpentryAction.Move;
         toUpgrade.isMoving = true;
         __instance.buildingToMove = toUpgrade;
+        _buildingWasPickedUp = false;
 
         Game1.playSound("axchop");
 
@@ -122,12 +124,22 @@ internal static class CarpenterMenuPatcher
     [HarmonyPostfix]
     private static void receiveLeftClick_Postfix(CarpenterMenu __instance)
     {
-        if (_pendingCost == null || __instance.buildingToMove != null)
+        if (_pendingCost == null)
+            return;
+
+        if (__instance.buildingToMove != null)
+        {
+            _buildingWasPickedUp = true;
+            return;
+        }
+
+        if (!_buildingWasPickedUp)
             return;
 
         if (!__instance.onFarm || __instance.Action != CarpenterMenu.CarpentryAction.Move)
         {
             _pendingCost = null;
+            _buildingWasPickedUp = false;
             return;
         }
 
@@ -135,6 +147,9 @@ internal static class CarpenterMenuPatcher
 
         foreach (Item material in _pendingCost.Materials)
             Game1.player.Items.ReduceId(material.QualifiedItemId, material.Stack);
+        
+        _pendingCost.Building.tilesWide.Value = _pendingCost.OldTilesWide;
+        _pendingCost.Building.tilesHigh.Value = _pendingCost.OldTilesHigh;
 
         ModEntry.ModMonitor.Log(
             $"Building placed successfully. Build costs deducted.",
@@ -142,9 +157,7 @@ internal static class CarpenterMenuPatcher
         );
 
         _pendingCost = null;
-
-        _pendingCost.Building.tilesWide.Value = _pendingCost.OldTilesWide;
-        _pendingCost.Building.tilesHigh.Value = _pendingCost.OldTilesHigh;
+        _buildingWasPickedUp = false;
 
         __instance.returnToCarpentryMenuAfterSuccessfulBuild();
     }
