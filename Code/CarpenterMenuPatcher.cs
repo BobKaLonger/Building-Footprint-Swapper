@@ -30,11 +30,22 @@ internal static class CarpenterMenuPatcher
             prefix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(receiveLeftClick_Prefix)),
             postfix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(receiveLeftClick_Postfix))
         );
+
+        harmony.Patch(
+            original: AccessTools.Method(typeof(Building), nameof(Building.occupiesTile),
+            new[] { typeof(int), typeof(int), typeof(bool) }),
+            postfix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(occupiesTile_Postfix))
+        );
+
+        harmony.Patch(
+            original: AccessTools.Method(typeof(Building), nameof(Building.FinishConstruction)),
+            postfix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(FinishConstruction_Postfix))
+        );
     }
 
     private static PendingUpgradeCost _pendingCost;
 
-    private record PendingUpgradeCost(int Gold, List<Item> Materials);
+    private record PendingUpgradeCost(int Gold, List<Item> Materials, int OldTilesWide, int OldTilesHigh, Building Building);
 
     [HarmonyPrefix]
     private static bool receiveLeftClick_Prefix(CarpenterMenu __instance, int x, int y)
@@ -59,7 +70,10 @@ internal static class CarpenterMenuPatcher
             __instance.Blueprint.BuildCost,
             __instance.Blueprint.BuildMaterials
                 .Select(m => ItemRegistry.Create(m.ItemId, m.Amount))
-                .ToList()
+                .ToList(),
+            toUpgrade.tilesWide.Value,
+            toUpgrade.tilesHigh.Value,
+            toUpgrade
         );
 
         toUpgrade.upgradeName.Value = __instance.Blueprint.Id;
@@ -78,6 +92,8 @@ internal static class CarpenterMenuPatcher
         {
             toUpgrade.tilesWide.Value = newData.Size.X;
             toUpgrade.tilesHigh.Value = newData.Size.Y;
+            toUpgrade.modData[$"{CarpenterMenuPatcher.CustomFieldKey}/PendingTilesWide"] = newData.Size.X.ToString();
+            toUpgrade.modData[$"{CarpenterMenuPatcher.CustomFieldKey}/PendingTilesHigh"] = newData.Size.X.ToString();
         }
         else
         {
@@ -127,7 +143,38 @@ internal static class CarpenterMenuPatcher
 
         _pendingCost = null;
 
+        _pendingCost.Building.tilesWide.Value = _pendingCost.OldTilesWide;
+        _pendingCost.Building.tilesHigh.Value = _pendingCost.OldTilesHigh;
+
         __instance.returnToCarpentryMenuAfterSuccessfulBuild();
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(Building), nameof(Building.occupiesTile), new[] { typeof(int), typeof(int), typeof(bool) })]
+    private static void occupiesTile_Postfix(Building __instance, int x, int y, ref bool __result)
+    {
+        if (__result)
+            return;
+
+        if (!__instance.modData.TryGetValue($"{CustomFieldKey}/PendingTilesWide", out string wideStr)
+            || !__instance.modData.TryGetValue($"{CustomFieldKey}/PeendingTilesHigh", out string highStr))
+            return;
+
+        if (!int.TryParse(wideStr, out int pendingWide) || !int.TryParse(highStr, out int pendingHigh))
+            return;
+
+        __result = x >= __instance.tileX.Value
+            && x < __instance.tileX.Value + pendingWide
+            && y >= __instance.tileY.Value
+            && y < __instance.tileY.Value + pendingHigh;
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(Building), nameof(Building.FinishConstruction))]
+    private static void FinishConstruction_Postfix(Building __instance)
+    {
+        __instance.modData.Remove($"{CustomFieldKey}/PendingTilesWide");
+        __instance.modData.Remove($"{CustomFieldKey}/PendingTilesHigh");
     }
 
     private static bool IsForceMoveBlueprintUpgrade(CarpenterMenu.BlueprintEntry blueprint)
