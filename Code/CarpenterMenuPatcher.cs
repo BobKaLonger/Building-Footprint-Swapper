@@ -45,6 +45,11 @@ internal static class CarpenterMenuPatcher
             original: AccessTools.Method(typeof(CarpenterMenu), nameof(CarpenterMenu.returnToCarpentryMenu)),
             prefix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(returnToCarpentryMenu_Prefix))
         );
+
+        harmony.Patch(
+            original: AccessTools.Method(typeof(Building), nameof(Building.GetData)),
+            postfix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(GetData_Postfix))
+        );
     }
 
     private static PendingUpgradeCost _pendingCost;
@@ -173,6 +178,32 @@ internal static class CarpenterMenuPatcher
         _pendingCost = null;
 
         __instance.returnToCarpentryMenuAfterSuccessfulBuild();
+    }
+
+    [HarmonyPatch(typeof(Building), nameof(Building.GetData))]
+    private static void GetData_Postfix(Building __instance, ref BuildingData __result)
+    {
+        if (__result == null)
+            return;
+        
+        string upgradeName = __instance.upgradeName.Value;
+        if (string.IsNullOrEmpty(upgradeName))
+            return;
+
+        if (!__instance.modData.ContainsKey($"{CustomFieldKey}/PendingTilesWide"))
+            return;
+
+        if (!Game1.buildingData.TryGetValue(upgradeName, out BuildingData upgradeData))
+        {
+            ModEntry.ModMonitor.Log(
+                $"Could not find building data for '{upgradeName}' to read upgrade sign position",
+                LogLevel.Warn
+            );
+            return;
+        }
+
+        __result.UpgradeSignTile = upgradeData.UpgradeSignTile;
+        __result.UpgradeSignHeight = upgradeData.UpgradeSignHeight;
     }
 
     [HarmonyPatch(typeof(Building), nameof(Building.isTilePassable))]
