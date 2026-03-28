@@ -32,9 +32,8 @@ internal static class CarpenterMenuPatcher
         );
 
         harmony.Patch(
-            original: AccessTools.Method(typeof(Building), nameof(Building.occupiesTile),
-            new[] { typeof(int), typeof(int), typeof(bool) }),
-            postfix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(occupiesTile_Postfix))
+            original: AccessTools.Method(typeof(Building), nameof(Building.isTilePassable)),
+            postfix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(isTilePassable_Postfix))
         );
 
         harmony.Patch(
@@ -176,23 +175,29 @@ internal static class CarpenterMenuPatcher
         __instance.returnToCarpentryMenuAfterSuccessfulBuild();
     }
 
-    [HarmonyPatch(typeof(Building), nameof(Building.occupiesTile), new[] { typeof(int), typeof(int), typeof(bool) })]
-    private static void occupiesTile_Postfix(Building __instance, int x, int y, ref bool __result)
+    [HarmonyPatch(typeof(Building), nameof(Building.isTilePassable))]
+    private static void isTilePassable_Postfix(Building __instance, Vector2 tile, ref bool __result)
     {
-        if (__result)
+        if (!__result)
             return;
-
+        
         if (!__instance.modData.TryGetValue($"{CustomFieldKey}/PendingTilesWide", out string wideStr)
             || !__instance.modData.TryGetValue($"{CustomFieldKey}/PendingTilesHigh", out string highStr))
             return;
 
         if (!int.TryParse(wideStr, out int pendingWide) || !int.TryParse(highStr, out int pendingHigh))
             return;
+        
+        int x = (int)tile.X;
+        int y = (int)tile.Y;
 
-        __result = x >= __instance.tileX.Value
+        bool inPendingFootprint = x >= __instance.tileX.Value
             && x < __instance.tileX.Value + pendingWide
             && y >= __instance.tileY.Value
             && y < __instance.tileY.Value + pendingHigh;
+
+        if (inPendingFootprint)
+            __result = false;
     }
 
     [HarmonyPatch(typeof(Building), nameof(Building.FinishConstruction))]
