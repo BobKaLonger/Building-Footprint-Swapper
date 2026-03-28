@@ -1,0 +1,270 @@
+{
+    "Format": "2.9.0",
+    
+    "CustomLocations": [
+        {
+            "Name": "bobkalonger.testmod_testBarn",
+            "FromMapFile": "assets/testBarn.tmx",
+        },
+        {
+            "Name": "bobkalonger.testmod_testCoop",
+            "FromMapFile": "assets/testCoop.tmx",
+        }
+    ],
+
+    "Changes": [
+        
+        {
+            "LogName": "Paintable Test Barn",
+            "Action": "EditData",
+            "Target": "Data/PaintData",
+            "Entries": {
+                "{{ModId}}_TestBarn": "Building/-15 0/Roof/-10 5/Trim/-10 5"
+            }
+        },
+        {
+            "LogName": "Paintable Test Coop",
+            "Action": "EditData",
+            "Target": "Data/PaintData",
+            "Entries": {
+                "{{ModId}}_TestCoop": "Building/-25 0/Roof/-15 5/Trim/-25 0"
+            }
+        },
+        {
+            "LogName": "Create Test Barn",
+            "Action": "EditData",
+            "Target": "Data/Buildings",
+            "Entries": {
+                "{{ModId}}_TestBarn": {
+                    "ID": "{{i18n: TestBarnName}}",
+                    "Name": "{{i18n: TestBarnName}}",
+                    "Description": "{{i18n: TestBarnDescription}}",
+                    "Texture": "Buildings\\SVE_PremiumBarn",
+                    "DrawShadow": true,
+                    "Size": {
+                        "X": 11,
+                        "Y": 4
+                    },
+                    "FadeWhenBehind": true,
+                    "SourceRect": {
+                        "X": 0,
+                        "Y": 0,
+                        "Width": 176,
+                        "Height": 144
+                    },
+                    "Builder": "Robin",
+                    "BuildDays": 1,
+                    "BuildCost": 10,
+                    "BuildMaterials": [],
+                    "BuildingToUpgrade": "Deluxe Barn",
+                    "BuildMenuDrawOffset": {
+                        "X": 0,
+                        "Y": 5
+                    },
+                    "HumanDoor": {
+                        "X": 1,
+                        "Y": 3
+                    },
+                    "AnimalDoor": {
+                        "X": 4,
+                        "Y": 3,
+                        "Width": 3,
+                        "Height": 1
+                    },
+                    "AnimalDoorOpenDuration": 0.75,
+                    "AnimalDoorOpenSound": "doorCreak",
+                    "AnimalDoorCloseDuration": 0.6,
+                    "AnimalDoorCloseSound": "doorCreakReverse",
+                    "IndoorMap": "bobkalonger.testmod.testBarn",
+                    "IndoorMapType": "StardewValley.AnimalHouse",
+                    "MaxOccupants": 40,
+                    "ValidOccupantTypes": [
+                        "Barn"
+                    ],
+                    "AllowAnimalPregnancy": true,
+                    "IndoorItemMoves": [],
+                    "AllowsFlooringUnderneath": true,
+                    "DrawLayers": [
+                        {
+                            "Id": "Default_Overlay",
+							"Texture": null,
+                            "SourceRect": {
+                              "X": 98,
+                              "Y": 144,
+                              "Width": 44,
+                              "Height": 32
+                              },
+							"DrawPosition": "66, 83",
+                            "DrawInBackground": false
+						},
+						{
+                            "Id": "Default_AnimalDoor",
+							"Texture": null,
+                            "SourceRect": {
+                              "X": 2,
+                              "Y": 146,
+                              "Width": 44,
+                              "Height": 28
+                              },
+							"DrawPosition": "66, 115",
+							"DrawInBackground": false,
+							"SortTileOffset": 0.02,
+							"OnlyDrawIfChestHasContents": null,
+							"FrameDuration": 90,
+                            "FrameCount": 1,
+                            "FramesPerRow": -1,
+							"AnimalDoorOffset": {
+                                "X": 0,
+                                "Y": -24
+                            }
+                        },
+                        {
+                            "Id": "Default_AnimalDoor_Open",
+							"Texture": null,
+                            "SourceRect": {
+                              "X": 50,
+                              "Y": 146,
+                              "Width": 44,
+                              "Height": 28
+                              },
+							"DrawPosition": "66, 115",
+                            "DrawInBackground": false,
+							"SortTileOffset": 1.0,
+							"OnlyDrawIfChestHasContents": null,
+							"FrameDuration": 90,
+                            "FrameCount": 1,
+                            "FramesPerRow": -1,
+							"AnimalDoorOffset": {
+							  "X": 0,
+							  "Y": 0
+                            }
+						}
+                    ],
+                    "CustomFields": {
+                        "bobkalonger.BFS_util/ForceMove": "true"
+                    }
+                }
+            }
+        },
+        {
+            "LogName": "Create Test Coop",
+            "Action": "EditData",
+            "Target": "Data/Buildings",
+            "Entries": {
+                "{{ModId}}_TestCoop": {
+                    "ID": "{{i18n: TestCoopName}}",
+                    "Name": "{{i18n: TestCoopName}}",
+                    "Description": "{{i18n: TestCoopDescription}}",
+                    "Texture": "Buildings\\Premium Coop",
+                    "DrawShadow": true,
+                    "Size": {
+                        "X": 9,
+                        "Y": 4
+                    },
+                    "FadeWhenBehind": true,
+                    "SourceRect": {
+                        "X": 0,
+                        "Y": 0,
+                        "Width": 144,
+                        "Height": 144
+                    },
+                    "SeasonOffset": null,
+                    "Builder": "Robin",
+                    "BuildDays": 1,
+                    "BuildCost": 10,
+                    "BuildMaterials": [],
+                    "BuildingToUpgrade": "Deluxe Coop",
+                    "SortTileOffset": "2.5",
+                    "CollisionMap": "XXXXXXOOO\nXXXXXXXXX\nXXXXXXXXX\nXXXXXXOOO",
+                    "BuildMenuDrawOffset": {
+                        "X": 0,
+                        "Y": 0
+                    },
+                    "HumanDoor": {
+                        "X": 7,
+                        "Y": 2
+                    },
+                    "AnimalDoor": {
+                        "X": 2,
+                        "Y": 3,
+                        "Width": 2,
+                        "Height": 1
+                    },
+                    "AnimalDoorOpenDuration": 0.3125,
+                    "AnimalDoorOpenSound": "doorCreak",
+                    "AnimalDoorCloseDuration": 0.3125,
+                    "AnimalDoorCloseSound": "doorCreakReverse",
+                    "IndoorMap": "bobkalonger.testmod.testCoop",
+                    "IndoorMapType": "StardewValley.AnimalHouse",
+                    "MaxOccupants": 40,
+                    "ValidOccupantTypes": [
+                        "Coop"
+                    ],
+                    "AllowAnimalPregnancy": false,
+                    "IndoorItemMoves": [],
+                    "IndoorItems": [],
+                    "AllowsFlooringUnderneath": true,
+                    "DrawLayers": [
+                        {
+                            "Id": "Default_Overlay",
+							"Texture": null,
+                            "SourceRect": {
+                              	"X": 90,
+                              	"Y": 146,
+                              	"Width": 40,
+                              	"Height": 12
+                            },
+							"DrawPosition": "28, 116",
+                            "DrawInBackground": false
+						},
+					    {
+                            "Id": "Default_AnimalDoor",
+                            "Texture": null,
+                            "SourceRect": {
+                                "X": 0,
+                                "Y": 144,
+                                "Width": 40,
+                                "Height": 16
+                            },
+                            "DrawPosition": "28, 127",
+                            "DrawInBackground": false,
+						    "SortTileOffset": 0.02,
+						    "OnlyDrawIfChestHasContents": null,
+						    "FrameDuration": 90,
+						    "FrameCount": 1,
+						    "FramesPerRow": -1,
+						    "AnimalDoorOffset": {
+							    "X": 0,
+							    "Y": -12
+                            }
+					    },
+					    {
+                            "Id": "Default_AnimalDoor_Open",
+							"Texture": null,
+                            "SourceRect": {
+                            	"X": 48,
+                            	"Y": 144,
+                            	"Width": 40,
+                            	"Height": 16
+                            },
+							"DrawPosition": "28, 127",
+                            "DrawInBackground": false,
+							"SortTileOffset": 1.0,
+							"OnlyDrawIfChestHasContents": null,
+							"FrameDuration": 90,
+                            "FrameCount": 1,
+                            "FramesPerRow": -1,
+							"AnimalDoorOffset": {
+								"X": 0,
+								"Y": 0
+                            }
+						}
+                    ],
+                    "CustomFields": {
+                        "bobkalonger.BFS_util/ForceMove": "true"
+                    }
+                }
+            }
+        }
+    ]
+}
