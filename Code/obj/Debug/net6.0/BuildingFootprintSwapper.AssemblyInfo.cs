@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BuildingFootprintSwapper")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2f0d8cf4d3f2b64b40eb42f40c52b726b07ee9d")]
 [assembly: System.Reflection.AssemblyProductAttribute("BuildingFootprintSwapper")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BuildingFootprintSwapper")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
