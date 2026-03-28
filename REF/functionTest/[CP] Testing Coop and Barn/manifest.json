@@ -17,7 +17,7 @@
             "IsRequired": true
         },
         {
-            "UniqueID": "bobkalonger.testmod",
+            "UniqueID": "bobkalonger.BFS_util",
             "MinimumVersion": "1.0.0",
             "IsRequired": true
         }

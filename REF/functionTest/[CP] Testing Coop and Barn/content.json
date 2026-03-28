@@ -3,11 +3,11 @@
     
     "CustomLocations": [
         {
-            "Name": "bobkalonger.testmod_testBarn",
+            "Name": "bobkalonger.testmod_TestBarn",
             "FromMapFile": "assets/testBarn.tmx",
         },
         {
-            "Name": "bobkalonger.testmod_testCoop",
+            "Name": "bobkalonger.testmod_TestCoop",
             "FromMapFile": "assets/testCoop.tmx",
         }
     ],
