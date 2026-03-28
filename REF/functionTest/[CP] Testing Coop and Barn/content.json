@@ -4,11 +4,11 @@
     "CustomLocations": [
         {
             "Name": "bobkalonger.testmod_TestBarn",
-            "FromMapFile": "assets/testBarn.tmx",
+            "FromMapFile": "assets/testBarn.tmx"
         },
         {
             "Name": "bobkalonger.testmod_TestCoop",
-            "FromMapFile": "assets/testCoop.tmx",
+            "FromMapFile": "assets/testCoop.tmx"
         }
     ],
 
@@ -75,7 +75,7 @@
                     "AnimalDoorOpenSound": "doorCreak",
                     "AnimalDoorCloseDuration": 0.6,
                     "AnimalDoorCloseSound": "doorCreakReverse",
-                    "IndoorMap": "bobkalonger.testmod.testBarn",
+                    "IndoorMap": "{{ModId}}_testBarn",
                     "IndoorMapType": "StardewValley.AnimalHouse",
                     "MaxOccupants": 40,
                     "ValidOccupantTypes": [
@@ -193,7 +193,7 @@
                     "AnimalDoorOpenSound": "doorCreak",
                     "AnimalDoorCloseDuration": 0.3125,
                     "AnimalDoorCloseSound": "doorCreakReverse",
-                    "IndoorMap": "bobkalonger.testmod.testCoop",
+                    "IndoorMap": "{{ModId}}_testCoop",
                     "IndoorMapType": "StardewValley.AnimalHouse",
                     "MaxOccupants": 40,
                     "ValidOccupantTypes": [
