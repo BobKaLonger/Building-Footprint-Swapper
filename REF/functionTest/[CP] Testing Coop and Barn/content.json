@@ -61,6 +61,11 @@
                         "X": 0,
                         "Y": 5
                     },
+                    "UpgradeSignTile": {
+                        "X": 4.5,
+                        "Y": 4
+                    },
+                    "UpgradeSignHeight": "50",
                     "HumanDoor": {
                         "X": 1,
                         "Y": 3
@@ -179,6 +184,11 @@
                         "X": 0,
                         "Y": 0
                     },
+                    "UpgradeSignTile": {
+                        "X": 4.5,
+                        "Y": 4
+                    },
+                    "UpgradeSignHeight": "52",
                     "HumanDoor": {
                         "X": 7,
                         "Y": 2
