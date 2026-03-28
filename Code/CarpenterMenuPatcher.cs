@@ -44,7 +44,7 @@ internal static class CarpenterMenuPatcher
     }
 
     private static PendingUpgradeCost _pendingCost;
-    private static bool _buildingWasPickedUp;
+    private static bool _skipNextPostfix;
 
     private record PendingUpgradeCost(int Gold, List<Item> Materials, int OldTilesWide, int OldTilesHigh, Building Building);
 
@@ -108,7 +108,6 @@ internal static class CarpenterMenuPatcher
         __instance.Action = CarpenterMenu.CarpentryAction.Move;
         toUpgrade.isMoving = true;
         __instance.buildingToMove = toUpgrade;
-        _buildingWasPickedUp = false;
 
         Game1.playSound("axchop");
 
@@ -117,6 +116,7 @@ internal static class CarpenterMenuPatcher
             $"Entering move mode for repositioning.",
             LogLevel.Debug
         );
+        _skipNextPostfix = true;
 
         return false;
     }
@@ -127,13 +127,13 @@ internal static class CarpenterMenuPatcher
         if (_pendingCost == null)
             return;
 
-        if (__instance.buildingToMove != null)
+        if (_skipNextPostfix)
         {
-            _buildingWasPickedUp = true;
+            _skipNextPostfix = false;
             return;
         }
 
-        if (!_buildingWasPickedUp)
+        if (__instance.buildingToMove != null)
             return;
 
         if (!__instance.onFarm || __instance.Action != CarpenterMenu.CarpentryAction.Move)
@@ -147,7 +147,6 @@ internal static class CarpenterMenuPatcher
             Game1.netWorldState.Value.UpdateUnderConstruction();
             
             _pendingCost = null;
-            _buildingWasPickedUp = false;
             return;
         }
 
@@ -165,7 +164,6 @@ internal static class CarpenterMenuPatcher
         );
 
         _pendingCost = null;
-        _buildingWasPickedUp = false;
 
         __instance.returnToCarpentryMenuAfterSuccessfulBuild();
     }
