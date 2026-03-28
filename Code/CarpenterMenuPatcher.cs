@@ -126,6 +126,8 @@ internal static class CarpenterMenuPatcher
         );
 
         _pendingCost = null;
+
+        __instance.returnToCarpentryMenuAfterSuccessfulBuild();
     }
 
     private static bool IsForceMoveBlueprintUpgrade(CarpenterMenu.BlueprintEntry blueprint)
