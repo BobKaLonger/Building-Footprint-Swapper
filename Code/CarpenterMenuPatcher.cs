@@ -41,6 +41,11 @@ internal static class CarpenterMenuPatcher
             original: AccessTools.Method(typeof(Building), nameof(Building.FinishConstruction)),
             postfix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(FinishConstruction_Postfix))
         );
+
+        harmony.Patch(
+            original: AccessTools.Method(typeof(CarpenterMenu), nameof(CarpenterMenu.returnToCarpentryMenu)),
+            prefix: new HarmonyMethod(typeof(CarpenterMenuPatcher), nameof(returnToCarpentryMenu_Prefix))
+        );
     }
 
     private static PendingUpgradeCost _pendingCost;
@@ -121,6 +126,23 @@ internal static class CarpenterMenuPatcher
         return false;
     }
 
+    private static void returnToCarpentryMenu_Prefix(CarpenterMenu __instance)
+    {
+        if (_pendingCost == null)
+            return;
+
+        _pendingCost.Building.upgradeName.Value = null;
+        _pendingCost.Building.daysUntilUpgrade.Value = 0;
+        _pendingCost.Building.tilesWide.Value = _pendingCost.OldTilesWide;
+        _pendingCost.Building.tilesHigh.Value = _pendingCost.OldTilesHigh;
+        _pendingCost.Building.modData.Remove($"{CustomFieldKey}/PendingTilesWide");
+        _pendingCost.Building.modData.Remove($"{CustomFieldKey}/PendingTilesHigh");
+        Game1.netWorldState.Value.UpdateUnderConstruction();
+
+        _pendingCost = null;
+        _skipNextPostfix = false;
+    }
+
     [HarmonyPostfix]
     private static void receiveLeftClick_Postfix(CarpenterMenu __instance)
     {
@@ -135,20 +157,6 @@ internal static class CarpenterMenuPatcher
 
         if (__instance.buildingToMove != null)
             return;
-
-        if (!__instance.onFarm || __instance.Action != CarpenterMenu.CarpentryAction.Move)
-        {
-            _pendingCost.Building.upgradeName.Value = null;
-            _pendingCost.Building.daysUntilUpgrade.Value = 0;
-            _pendingCost.Building.tilesWide.Value = _pendingCost.OldTilesWide;
-            _pendingCost.Building.tilesHigh.Value = _pendingCost.OldTilesHigh;
-            _pendingCost.Building.modData.Remove($"{CustomFieldKey}/PendingTilesWide");
-            _pendingCost.Building.modData.Remove($"{CustomFieldKey}/PendingTilesHigh");
-            Game1.netWorldState.Value.UpdateUnderConstruction();
-            
-            _pendingCost = null;
-            return;
-        }
 
         Game1.player.Money -= _pendingCost.Gold;
 
@@ -168,7 +176,6 @@ internal static class CarpenterMenuPatcher
         __instance.returnToCarpentryMenuAfterSuccessfulBuild();
     }
 
-    [HarmonyPostfix]
     [HarmonyPatch(typeof(Building), nameof(Building.occupiesTile), new[] { typeof(int), typeof(int), typeof(bool) })]
     private static void occupiesTile_Postfix(Building __instance, int x, int y, ref bool __result)
     {
@@ -188,7 +195,6 @@ internal static class CarpenterMenuPatcher
             && y < __instance.tileY.Value + pendingHigh;
     }
 
-    [HarmonyPostfix]
     [HarmonyPatch(typeof(Building), nameof(Building.FinishConstruction))]
     private static void FinishConstruction_Postfix(Building __instance)
     {
