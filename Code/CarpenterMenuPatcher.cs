@@ -94,7 +94,7 @@ internal static class CarpenterMenuPatcher
             toUpgrade.tilesWide.Value = newData.Size.X;
             toUpgrade.tilesHigh.Value = newData.Size.Y;
             toUpgrade.modData[$"{CarpenterMenuPatcher.CustomFieldKey}/PendingTilesWide"] = newData.Size.X.ToString();
-            toUpgrade.modData[$"{CarpenterMenuPatcher.CustomFieldKey}/PendingTilesHigh"] = newData.Size.X.ToString();
+            toUpgrade.modData[$"{CarpenterMenuPatcher.CustomFieldKey}/PendingTilesHigh"] = newData.Size.Y.ToString();
         }
         else
         {
@@ -138,6 +138,14 @@ internal static class CarpenterMenuPatcher
 
         if (!__instance.onFarm || __instance.Action != CarpenterMenu.CarpentryAction.Move)
         {
+            _pendingCost.Building.upgradeName.Value = null;
+            _pendingCost.Building.daysUntilUpgrade.Value = 0;
+            _pendingCost.Building.tilesWide.Value = _pendingCost.OldTilesWide;
+            _pendingCost.Building.tilesHigh.Value = _pendingCost.OldTilesHigh;
+            _pendingCost.Building.modData.Remove($"{CustomFieldKey}/PendingTilesWide");
+            _pendingCost.Building.modData.Remove($"{CustomFieldKey}/PendingTilesHigh");
+            Game1.netWorldState.Value.UpdateUnderConstruction();
+            
             _pendingCost = null;
             _buildingWasPickedUp = false;
             return;
@@ -170,7 +178,7 @@ internal static class CarpenterMenuPatcher
             return;
 
         if (!__instance.modData.TryGetValue($"{CustomFieldKey}/PendingTilesWide", out string wideStr)
-            || !__instance.modData.TryGetValue($"{CustomFieldKey}/PeendingTilesHigh", out string highStr))
+            || !__instance.modData.TryGetValue($"{CustomFieldKey}/PendingTilesHigh", out string highStr))
             return;
 
         if (!int.TryParse(wideStr, out int pendingWide) || !int.TryParse(highStr, out int pendingHigh))
