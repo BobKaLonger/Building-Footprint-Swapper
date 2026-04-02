@@ -4,13 +4,13 @@
     "ConfigSchema": {
         "Premium Barn Upgrade": {
             "AllowValues": "Deluxe, Mega, Giga",
-            "Description": "Choose which buildings to upgrade for a custom upgrade path.",
+            "Description": "Choose which barn to upgrade for a custom upgrade path.",
             "Default": "Deluxe",
             "Section": "Upgrade Path"
         },
         "Premium Coop Upgrade": {
             "AllowValues": "Deluxe, Mega, Giant, Giga",
-            "Description": "Choose which buildings to upgrade for a custom upgrade path.",
+            "Description": "Choose which coop to upgrade for a custom upgrade path.",
             "Default": "Deluxe",
             "Section": "Upgrade Path"
         }
