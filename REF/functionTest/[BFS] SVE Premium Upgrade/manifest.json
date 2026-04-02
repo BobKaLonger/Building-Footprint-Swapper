@@ -25,21 +25,6 @@
             "UniqueID": "FlashShifter.StardewValleyExpandedCP",
             "MinimumVersion": "1.15.11",
             "IsRequired": true
-        },
-        {
-			"UniqueID": "jenf1.megacoopbarn",
-			"MinimumVersion": "1.4.2",
-			"IsRequired": false
-		},
-		{
-			"UniqueID": "UncleArya.ResourceChickens",
-			"MinimumVersion": "1.0.1",
-			"IsRequired": false
-		},
-		{
-			"UniqueID": "bobkalonger.gigacoopnbarn",
-			"MinimumVersion": "1.1.5",
-			"IsRequired": false
-		}
+        }
     ]
 }
