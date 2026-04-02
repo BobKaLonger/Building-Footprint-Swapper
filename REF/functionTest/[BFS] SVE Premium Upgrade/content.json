@@ -1,11 +1,29 @@
 {
     "Format": "2.9.0",
+
+    "ConfigSchema": {
+        "Premium Barn Upgrade": {
+            "AllowValues": "Deluxe, Mega, Giga",
+            "Description": "Choose which buildings to upgrade for a custom upgrade path.",
+            "Default": "Deluxe",
+            "Section": "Upgrade Path"
+        },
+        "Premium Coop Upgrade": {
+            "AllowValues": "Deluxe, Mega, Giant, Giga",
+            "Description": "Choose which buildings to upgrade for a custom upgrade path.",
+            "Default": "Deluxe",
+            "Section": "Upgrade Path"
+        }
+    },
     
     "Changes": [   
         {
             "LogName": "Premium Barn Upgrade",
             "Action": "EditData",
             "Priority": "Late",
+            "When": {
+                "Premium Barn Upgrade": "Deluxe"
+            },
             "Target": "Data/Buildings",
             "Fields": {
                 "FlashShifter.StardewValleyExpandedCP_PremiumBarn": {
@@ -25,10 +43,123 @@
             "LogName": "Premium Coop Upgrade",
             "Action": "EditData",
             "Priority": "Late",
+            "When": {
+                "Premium Coop Upgrade": "Deluxe"
+            },
             "Target": "Data/Buildings",
             "Fields": {
                 "FlashShifter.StardewValleyExpandedCP_PremiumCoop": {
                     "BuildingToUpgrade": "Deluxe Coop",
+                    "UpgradeSignTile": {
+                        "X": 4.5,
+                        "Y": 4
+                    },
+                    "UpgradeSignHeight": "52",
+                    "CustomFields": {
+                        "bobkalonger.BFS_util/ForceMove": "true"
+                    }
+                }
+            }
+        },
+        {
+            "LogName": "Premium Barn Upgrade",
+            "Action": "EditData",
+            "Priority": "Late",
+            "When": {
+                "Premium Barn Upgrade": "Mega"
+            },
+            "Target": "Data/Buildings",
+            "Fields": {
+                "FlashShifter.StardewValleyExpandedCP_PremiumBarn": {
+                    "BuildingToUpgrade": "jenf1.megacoopbarn_MegaBarn",
+                    "UpgradeSignTile": {
+                        "X": 4.5,
+                        "Y": 4
+                    },
+                    "UpgradeSignHeight": "50",
+                    "CustomFields": {
+                        "bobkalonger.BFS_util/ForceMove": "true"
+                    }
+                }
+            }
+        },
+        {
+            "LogName": "Premium Coop Upgrade",
+            "Action": "EditData",
+            "Priority": "Late",
+            "When": {
+                "Premium Coop Upgrade": "Mega"
+            },
+            "Target": "Data/Buildings",
+            "Fields": {
+                "FlashShifter.StardewValleyExpandedCP_PremiumCoop": {
+                    "BuildingToUpgrade": "jenf1.megacoopbarn_MegaCoop",
+                    "UpgradeSignTile": {
+                        "X": 4.5,
+                        "Y": 4
+                    },
+                    "UpgradeSignHeight": "52",
+                    "CustomFields": {
+                        "bobkalonger.BFS_util/ForceMove": "true"
+                    }
+                }
+            }
+        },
+        {
+            "LogName": "Premium Coop Upgrade",
+            "Action": "EditData",
+            "Priority": "Late",
+            "When": {
+                "Premium Coop Upgrade": "Giant"
+            },
+            "Target": "Data/Buildings",
+            "Fields": {
+                "FlashShifter.StardewValleyExpandedCP_PremiumCoop": {
+                    "BuildingToUpgrade": "UncleArya.ResourceChickens.GiantCoop",
+                    "UpgradeSignTile": {
+                        "X": 4.5,
+                        "Y": 4
+                    },
+                    "UpgradeSignHeight": "52",
+                    "CustomFields": {
+                        "bobkalonger.BFS_util/ForceMove": "true"
+                    }
+                }
+            }
+        },
+        {
+            "LogName": "Premium Barn Upgrade",
+            "Action": "EditData",
+            "Priority": "Late",
+            "When": {
+                "Premium Barn Upgrade": "Giga"
+            },
+            "Target": "Data/Buildings",
+            "Fields": {
+                "FlashShifter.StardewValleyExpandedCP_PremiumBarn": {
+                    "BuildingToUpgrade": "bobkalonger.gigacoopnbarn_GigaBarn",
+                    "UpgradeSignTile": {
+                        "X": 4.5,
+                        "Y": 4
+                    },
+                    "UpgradeSignHeight": "50",
+                    "CustomFields": {
+                        "bobkalonger.BFS_util/ForceMove": "true"
+                    }
+                }
+            }
+        },
+        {
+            "LogName": "Premium Coop Upgrade",
+            "Action": "EditData",
+            "Priority": "Late",
+            "When": {
+                "Premium Coop Upgrade": "Giga"
+            },
+            "Target": "Data/Buildings",
+            "Fields": {
+                "FlashShifter.StardewValleyExpandedCP_PremiumCoop": {
+                    "BuildingToUpgrade": "bobkalonger.gigacoopnbarn_GigaCoop",
                     "UpgradeSignTile": {
                         "X": 4.5,
                         "Y": 4
