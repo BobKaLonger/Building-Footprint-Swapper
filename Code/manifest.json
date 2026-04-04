@@ -1,10 +1,16 @@
 {
     "Name": "Building Footprint Swapper",
     "Author": "bobkalonger",
-    "Version": "1.0.0",
+    "Version": "1.0.1",
     "Description": "Utility for modders to allow for a change to the building footprint during an upgrade, automatically triggering the move menu before the upgrade proceeds.",
     "UniqueID": "bobkalonger.BFS_util",
     "EntryDll": "BuildingFootprintSwapper.dll",
     "UpdateKeys": [ "Nexus:44364" ],
-    "Dependencies": []
+    "Dependencies": [
+        {
+            "UniqueID": "aedenthorn.InstantBuildingConstruction",
+            "MinimumVersion": "0.3.0",
+            "IsRequired": false
+        }
+    ]
 }

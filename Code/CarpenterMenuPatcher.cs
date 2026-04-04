@@ -87,7 +87,7 @@ internal static class CarpenterMenuPatcher
         );
 
         toUpgrade.upgradeName.Value = __instance.Blueprint.Id;
-        toUpgrade.daysUntilUpgrade.Value = Math.Max(__instance.Blueprint.BuildDays, 1);
+        toUpgrade.daysUntilUpgrade.Value = __instance.Blueprint.BuildDays;
         toUpgrade.showUpgradeAnimation(__instance.TargetLocation);
         Game1.netWorldState.Value.MarkUnderConstruction(__instance.Builder, toUpgrade);
         Game1.Multiplayer.globalChatInfoMessage(
@@ -169,6 +169,12 @@ internal static class CarpenterMenuPatcher
         
         _pendingCost.Building.tilesWide.Value = _pendingCost.OldTilesWide;
         _pendingCost.Building.tilesHigh.Value = _pendingCost.OldTilesHigh;
+
+        if (_pendingCost.Building.daysUntilUpgrade.Value == 0)
+            {
+                _pendingCost.Building.daysUntilUpgrade.Value = 1;
+                _pendingCost.Building.FinishConstruction();
+            }
 
         ModEntry.ModMonitor.Log(
             $"Building placed successfully. Build costs deducted.",
