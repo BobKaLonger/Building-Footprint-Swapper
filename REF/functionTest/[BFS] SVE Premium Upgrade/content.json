@@ -19,7 +19,64 @@
                         "bobkalonger.BFS_util/ForceMove": "true"
                     }
                 }
-            }
+            },
+            "IndoorItems": [
+                {
+                            "Id": "Default_Heater",
+                            "ItemId": "(BC)104",
+                            "Tile": {
+                              "X": 7,
+                              "Y": 7
+                            },
+                            "Indestructible": false
+                        },
+						{
+                            "Id": "Default_AutoPetter",
+                            "ItemId": "(BC)272",
+                            "Tile": {
+                              "X": 10,
+                              "Y": 16
+                            },
+                            "Indestructible": false
+                        },
+						{
+                            "Id": "Default_AutoGrabber",
+                            "ItemId": "(BC)165",
+                            "Tile": {
+                              "X": 17,
+                              "Y": 16
+                            },
+                            "Indestructible": false
+                        }
+            ],
+            "IndoorItemMoves": [
+                {
+                    "Id": "Default_Feeder",
+                    "Source": {
+                        "X": 6,
+                        "Y": 3
+                    },
+                    "Destination": {
+                        "X": 4,
+                        "Y": 4
+                    }
+                },
+                {
+                    "Id": "OldHay",
+                    "Source": {
+                        "X": 8,
+                        "Y": 3
+                    },
+                    "Destination": {
+                        "X": 6,
+                        "Y": 4
+                    },
+                    "Size": {
+                        "X": 12,
+                        "Y": 1
+                    }
+                }
+            ]
         },
         {
             "LogName": "Premium Coop Upgrade",
@@ -38,7 +95,75 @@
                         "bobkalonger.BFS_util/ForceMove": "true"
                     }
                 }
-            }
+            },
+            "IndoorItems": [
+                {
+                            "Id": "Default_Heater",
+                            "ItemId": "(BC)104",
+                            "Tile": {
+                              "X": 4,
+                              "Y": 11
+                            },
+                            "Indestructible": false
+                        },
+                        {
+                            "Id": "Default_AutoPetter",
+                            "ItemId": "(BC)272",
+                            "Tile": {
+                              "X": 3,
+                              "Y": 6
+                            },
+                            "Indestructible": false
+                        },
+						{
+                            "Id": "Default_AutoGrabber",
+                            "ItemId": "(BC)165",
+                            "Tile": {
+                              "X": 23,
+                              "Y": 7
+                            },
+                            "Indestructible": false
+                        }
+            ],
+            "IndoorItemMoves": [
+                {
+                    "Id": "Default_Feeder",
+                    "Source": {
+                        "X": 3,
+                        "Y": 3
+                    },
+                    "Destination": {
+                        "X": 22,
+                        "Y": 4
+                    }
+                },
+                {
+                    "Id": "Default_Incubator",
+                    "Source": {
+                        "X": 2,
+                        "Y": 3
+                    },
+                    "Destination": {
+                        "X": 3,
+                        "Y": 4
+                    }
+                },
+                {
+                    "Id": "OldHay",
+                    "Source": {
+                        "X": 6,
+                        "Y": 3
+                    },
+                    "Destination": {
+                        "X": 5,
+                        "Y": 4
+                    },
+                    "Size": {
+                        "X": 12,
+                        "Y": 1
+                    }
+                }
+            ]
         }
     ]
 }
